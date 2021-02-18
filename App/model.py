@@ -70,32 +70,29 @@ def newCatalog():
 
     return catalog
 # Funciones para agregar informacion al catalogo
-def addBook(catalog, book):
+def addtitle(catalog, title):
     # Se adiciona el libro a la lista de libros
-    lt.addLast(catalog['title'], book)
+    lt.addLast(catalog['titles'], title)
     # Se obtienen los autores del libro
-    authors = book['authors'].split(",")
+    channels = title['channels'].split(",")
     # Cada autor, se crea en la lista de libros del catalogo, y se
     # crea un libro en la lista de dicho autor (apuntador al libro)
-    for author in authors:
-        addBookAuthor(catalog, author.strip(), book)
-def addBookAuthor(catalog, authorname, book):
+    for channel in channels:
+        addtitlechannel(catalog, channel.strip(), title)
+def addtitlechannel(catalog, channelname, title):
     """
     Adiciona un autor a lista de autores, la cual guarda referencias
     a los libros de dicho autor
     """
-    authors = catalog['authors']
-    posauthor = lt.isPresent(authors, authorname)
-    if posauthor > 0:
-        author = lt.getElement(authors, posauthor)
+    channels = catalog['channels']
+    poschannel = lt.isPresent(channels, channelname)
+    if poschannel > 0:
+        channel = lt.getElement(channels, poschannel)
     else:
-        author = newAuthor(authorname)
-        lt.addLast(authors, author)
-    lt.addLast(author['books'], book)
+        channel = newchannel(channelname)
+        lt.addLast(channels, channel)
+    lt.addLast(channel['titles'], title)
 def addTag(catalog, tag):
-    """
-    Adiciona un tag a la lista de tags
-    """
     t = newTag(tag['tag_name'], tag['tag_id'])
     lt.addLast(catalog['tags'], t)
 # Funciones para creacion de datos
