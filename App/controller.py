@@ -38,12 +38,12 @@ def loadData(catalog):
     loadvideos(catalog)
     loadcategory(catalog)
 def loadvideos(catalog):
-    booksfile = cf.data_dir + 'videos/books.csv'
-    input_file = csv.DictReader(open(booksfile, encoding='utf-8'))
+    vidsfile = cf.data_dir + 'Data/videos-small.csv'
+    input_file = csv.DictReader(open(vidssfile, encoding='utf-8'))
     for book in input_file:
-        model.addBook(catalog, book)
+        model.addtitle(catalog, title)
 def loadcategory(catalog):
-    tagsfile = cf.data_dir + 'videos/tags.csv'
+    tagsfile = cf.data_dir + 'Data/videos-small.csv'
     input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
     for tag in input_file:
         model.addTag(catalog, tag)
