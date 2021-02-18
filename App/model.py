@@ -47,22 +47,57 @@ def newCatalog():
                'trending_date': None,
                'channel_title': None,
                'publish_time': None,
-               ''
                'category_id': None,
                'views': None,
                'likes': None,
+               'dislikes':None,
+               'tags':None
                'country': None,}
 
-    catalog['books'] = lt.newList()
-    catalog['authors'] = lt.newList('SINGLE_LINKED',
-                                    cmpfunction=compareauthors)
+    catalog['title'] = lt.newList()
+    catalog['channel_title'] = lt.newList('SINGLE_LINKED',
+                                    cmpfunction=comparechannels)
     catalog['tags'] = lt.newList('SINGLE_LINKED',
                                  cmpfunction=comparetagnames)
-    catalog['book_tags'] = lt.newList('SINGLE_LINKED')
+    catalog['trending_date'] = lt.newList('SINGLE_LINKED')
+    catalog['publish_time'] = lt.newList('SINGLE_LINKED')
+    catalog['category_id'] = lt.newList('SINGLE_LINKED',cmpfunction=comparectegoryid)
+    catalog['views'] = lt.newList('SINGLE_LINKED')
+    catalog['likes'] = lt.newList('SINGLE_LINKED')
+    catalog['dislikes'] = lt.newList('SINGLE_LINKED')
+    catalog['country'] = lt.newList('SINGLE_LINKED', cmpfunction=comparecountries)
+
 
     return catalog
 # Funciones para agregar informacion al catalogo
-
+def addBook(catalog, book):
+    # Se adiciona el libro a la lista de libros
+    lt.addLast(catalog['title'], book)
+    # Se obtienen los autores del libro
+    authors = book['authors'].split(",")
+    # Cada autor, se crea en la lista de libros del catalogo, y se
+    # crea un libro en la lista de dicho autor (apuntador al libro)
+    for author in authors:
+        addBookAuthor(catalog, author.strip(), book)
+def addBookAuthor(catalog, authorname, book):
+    """
+    Adiciona un autor a lista de autores, la cual guarda referencias
+    a los libros de dicho autor
+    """
+    authors = catalog['authors']
+    posauthor = lt.isPresent(authors, authorname)
+    if posauthor > 0:
+        author = lt.getElement(authors, posauthor)
+    else:
+        author = newAuthor(authorname)
+        lt.addLast(authors, author)
+    lt.addLast(author['books'], book)
+def addTag(catalog, tag):
+    """
+    Adiciona un tag a la lista de tags
+    """
+    t = newTag(tag['tag_name'], tag['tag_id'])
+    lt.addLast(catalog['tags'], t)
 # Funciones para creacion de datos
 
 # Funciones de consulta

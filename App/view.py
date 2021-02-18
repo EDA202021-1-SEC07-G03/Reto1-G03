@@ -43,10 +43,9 @@ def printMenu():
     print("5- Buscar los videos con más likes")
 
 def initCatalog():
-    """
-    Inicializa el catalogo de libros
-    """
     return controller.initCatalog()
+def loadData(catalog):
+    controller.loadData(catalog)
 catalog = None
 
 """
@@ -59,11 +58,10 @@ while True:
         print("Cargando información de los archivos ....")
         catalog = initCatalog()
         loadData(catalog)
-        print('Libros cargados: ' + str(lt.size(catalog['books'])))
-        print('Autores cargados: ' + str(lt.size(catalog['authors'])))
-        print('Géneros cargados: ' + str(lt.size(catalog['tags'])))
-        print('Asociación de Géneros a Libros cargados: ' +
-              str(lt.size(catalog['book_tags'])))
+        print('Videos cargados: ' + str(lt.size(catalog['title'])))
+        print('Canales cargados: ' + str(lt.size(catalog['channel_title'])))
+        print('Etiquetas cargadas: ' + str(lt.size(catalog['tags'])))
+        
 
     elif int(inputs[0]) == 2:
         pass
