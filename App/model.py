@@ -51,33 +51,31 @@ def newCatalog():
                'views': None,
                'likes': None,
                'dislikes':None,
-               'tags':None
-               'country': None,}
+               'tags':None,
+               'country': None}
 
     catalog['title'] = lt.newList()
-    catalog['channel_title'] = lt.newList('SINGLE_LINKED',
-                                    cmpfunction=comparechannels)
-    catalog['tags'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparetagnames)
+    catalog['channel_title'] = lt.newList('SINGLE_LINKED')#,cmpfunction=comparechannels)
+    catalog['tags'] = lt.newList('SINGLE_LINKED')
     catalog['trending_date'] = lt.newList('SINGLE_LINKED')
     catalog['publish_time'] = lt.newList('SINGLE_LINKED')
-    catalog['category_id'] = lt.newList('SINGLE_LINKED',cmpfunction=comparectegoryid)
+    catalog['category_id'] = lt.newList('SINGLE_LINKED')
     catalog['views'] = lt.newList('SINGLE_LINKED')
     catalog['likes'] = lt.newList('SINGLE_LINKED')
     catalog['dislikes'] = lt.newList('SINGLE_LINKED')
-    catalog['country'] = lt.newList('SINGLE_LINKED', cmpfunction=comparecountries)
+    catalog['country'] = lt.newList('SINGLE_LINKED')
 
 
     return catalog
 # Funciones para agregar informacion al catalogo
 def addtitle(catalog, title):
     # Se adiciona el libro a la lista de libros
-    lt.addLast(catalog['titles'], title)
+    lt.addLast(catalog['title'], title)
     # Se obtienen los autores del libro
-    channels = title['channels'].split(",")
+    channel_title = title['channel_title'].split(",")
     # Cada autor, se crea en la lista de libros del catalogo, y se
     # crea un libro en la lista de dicho autor (apuntador al libro)
-    for channel in channels:
+    for channel in channel_title:
         addtitlechannel(catalog, channel.strip(), title)
 def addtitlechannel(catalog, channelname, title):
     """
@@ -96,9 +94,16 @@ def addTag(catalog, tag):
     t = newTag(tag['tag_name'], tag['tag_id'])
     lt.addLast(catalog['tags'], t)
 # Funciones para creacion de datos
-
+def newchannel(name):
+    channel = {'name': "", "titles": None}
+    channel['name'] = name
+    channel['titles'] = lt.newList('SINGLE_LINKED')
+    return channel
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
+def comparechannels(channelname1, author):
+    if (channelname1.lower() in channel['name'].lower()):
+        return 0
+    return -1
 # Funciones de ordenamiento
