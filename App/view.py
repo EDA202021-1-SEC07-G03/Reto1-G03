@@ -41,6 +41,9 @@ def printMenu():
     print("3- Encontrar video tendencia por país")
     print("4- Encontrar video tendencia por categoría")
     print("5- Buscar los videos con más likes")
+def printOptions():
+    print('1- ARRAY_LIST')
+    print('2- LINKED_LIST')
 
 def initCatalog():
     return controller.initCatalog()
@@ -51,21 +54,33 @@ catalog = None
 """
 Menu principal
 """
+#Prueba rápida
+catalog = initCatalog()
+loadData(catalog)
+'''
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        print(('Cargar información en el catálogo').capitalize())
+        printOptions()
+        inputs1=input('Seleccione un tipo para la representación de las listas:\n')
+        if int(inputs1[0])==1:
+            tipo='ARRAY_LIST'
+        elif inputs1[0]==2:
+            tipo='LINKED_LIST'
+        else:
+            print('Tipo de representación no válido')
+            sys.exit(0)
         print("Cargando información de los archivos ....")
         catalog = initCatalog()
         loadData(catalog)
-        print('Videos cargados: ' + str(lt.size(catalog['title'])))
-        print('Canales cargados: ' + str(lt.size(catalog['channel_title'])))
-        print('Etiquetas cargadas: ' + str(lt.size(catalog['tags'])))
-        
+        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+        #print('Canales cargados: ' + str(lt.size(catalog['categories'])))        
 
     elif int(inputs[0]) == 2:
         pass
 
     else:
         sys.exit(0)
-sys.exit(0)
+sys.exit(0)'''

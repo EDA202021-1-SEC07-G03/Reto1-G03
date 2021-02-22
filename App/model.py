@@ -43,46 +43,35 @@ comment_count,thumbnail_link,comments_disabled,ratings_disabled
 
 '''
 def newCatalog():
-    catalog = {'title': None,
-               'trending_date': None,
-               'channel_title': None,
-               'publish_time': None,
-               'category_id': None,
-               'views': None,
-               'likes': None,
-               'dislikes':None,
-               'tags':None,
-               'country': None}
-
-    catalog['title'] = lt.newList()
-    catalog['channel_title'] = lt.newList('SINGLE_LINKED')#,cmpfunction=comparechannels)
-    catalog['tags'] = lt.newList('SINGLE_LINKED')
-    catalog['trending_date'] = lt.newList('SINGLE_LINKED')
-    catalog['publish_time'] = lt.newList('SINGLE_LINKED')
-    catalog['category_id'] = lt.newList('SINGLE_LINKED')
-    catalog['views'] = lt.newList('SINGLE_LINKED')
-    catalog['likes'] = lt.newList('SINGLE_LINKED')
-    catalog['dislikes'] = lt.newList('SINGLE_LINKED')
-    catalog['country'] = lt.newList('SINGLE_LINKED')
-
-
+    catalog = {'videos':None, 'categories':None}
+    catalog['videos'] = lt.newList()
+    #catalog['categories'] = lt.newList(delimeter='')
     return catalog
 # Funciones para agregar informacion al catalogo
 def addtitle(catalog, title):
     # Se adiciona el libro a la lista de libros
-    lt.addLast(catalog['title'], title)
+    lt.addLast(catalog['videos'], title)
     # Se obtienen los autores del libro
-    channel_title = title['channel_title'].split(",")
+    channel_title = title['channel_title']
     # Cada autor, se crea en la lista de libros del catalogo, y se
     # crea un libro en la lista de dicho autor (apuntador al libro)
-    for channel in channel_title:
-        addtitlechannel(catalog, channel.strip(), title)
+    addtitlechannel(catalog, channel_title.strip(), title)
 def addtitlechannel(catalog, channelname, title):
     """
     Adiciona un autor a lista de autores, la cual guarda referencias
     a los libros de dicho autor
     """
-    channels = catalog['channels']
+    channels = []
+    channel=None
+    for video in catalog['videos'].values():
+        if type(video)==dict:
+            for info in video.values():
+                if info != None:
+                    print(info,'\n')#,info['channel_title'])
+                    channel=info['channel_title']
+                    if channel not in channels:
+                        channels.append(channel)
+    '''
     poschannel = lt.isPresent(channels, channelname)
     if poschannel > 0:
         channel = lt.getElement(channels, poschannel)
@@ -106,4 +95,4 @@ def comparechannels(channelname1, author):
     if (channelname1.lower() in channel['name'].lower()):
         return 0
     return -1
-# Funciones de ordenamiento
+# Funciones de ordenamiento'''
