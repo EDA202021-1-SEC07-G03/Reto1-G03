@@ -64,9 +64,8 @@ def addVideo(catalog, video):
 # Funciones de consulta
 def sortVideos(catalog, size, algorithm):
     sub_list = lt.subList(catalog['videos'], 0, size)
-    sub_list = sub_list.copy()
-    
 
+    
     if algorithm == 'Insertion sort':
         start_time = time.process_time()
         ins.sort(sub_list, cmpVideosbyViews)
