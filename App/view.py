@@ -25,6 +25,10 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import time
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import selectionsort as ses
+from DISClib.Algorithms.Sorting import shellsort as shs
 
 
 """
@@ -37,50 +41,77 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Encontrar buenos videos por categoría y país")
-    print("3- Encontrar video tendencia por país")
-    print("4- Encontrar video tendencia por categoría")
-    print("5- Buscar los videos con más likes")
+    print("2- Selección algorítmo de ordenamiento")
+ 
 def printOptions():
     print('1- ARRAY_LIST')
     print('2- LINKED_LIST')
 
-def initCatalog():
-    return controller.initCatalog()
-def loadData(catalog):
-    controller.loadData(catalog)
-catalog = None
+def printOptions2():
+    print('1- Insertion Sort')
+    print('2- Selection Sort')
+    print('3- Shell Sort')
+
+
 
 """
 Menu principal
 """
-#Prueba rápida
-catalog = initCatalog()
-loadData(catalog)
-'''
+
+def initCatalog(tipo):
+
+    return controller.initCatalog(tipo)
+
+
+def loadData(catalog):
+
+    controller.loadData(catalog)
+catalog = None
+
+
+
 while True:
+    tipo= 'ARRAY_LIST'
+    algorithm = 'a'
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
-        print(('Cargar información en el catálogo').capitalize())
+    if int(inputs) == 1:
         printOptions()
         inputs1=input('Seleccione un tipo para la representación de las listas:\n')
-        if int(inputs1[0])==1:
+        if int(inputs1)==1:
             tipo='ARRAY_LIST'
-        elif inputs1[0]==2:
+        elif inputs1==2:
             tipo='LINKED_LIST'
-        else:
-            print('Tipo de representación no válido')
-            sys.exit(0)
         print("Cargando información de los archivos ....")
-        catalog = initCatalog()
+        
+        catalog = initCatalog(tipo)
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
-        #print('Canales cargados: ' + str(lt.size(catalog['categories'])))        
+        
+        
 
-    elif int(inputs[0]) == 2:
-        pass
+
+    elif int(inputs) == 2:
+        printOptions2()
+        inputs2=int(input('Seleccione un tipo para el algorítmo de ordenamiento\n'))
+
+        if inputs2 == 1:
+            algorithm = 'Insertion sort'
+        if inputs2 == 2:
+            algorithm = 'Selection sort'
+        if inputs2 == 3:
+            algorithm = 'Shell sort'
+        size = int(input('Seleccione un tamaño de la sublista\n'))
+        print(len(catalog['videos']['elements']))
+        if size <= len(catalog['videos']['elements']):
+            tiempo_carga = controller.sortVideos(catalog, size, algorithm )
+            print('El tiempo de carga del algoritmo '+ str(algorithm) + ' con '+ str(size) + ' datos es igual a: '+ str(tiempo_carga))
+        elif size > len(catalog['videos']['elements']):
+            print('El tamaño de la sublista que escogio es mayor que el total de los datos.')
+
+
+
 
     else:
         sys.exit(0)
-sys.exit(0)'''
+sys.exit(0)

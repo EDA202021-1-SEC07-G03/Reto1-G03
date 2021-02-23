@@ -23,27 +23,45 @@
 import config as cf
 import model
 import csv
+import time
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import selectionsort as ses
+from DISClib.Algorithms.Sorting import shellsort as shs
 
 
+"""
+El controlador se encarga de mediar entre la vista y el modelo.
+"""
 
 # Inicialización del Catálogo de libros
-def initCatalog():
-    catalog = model.newCatalog()
+def initCatalog(tipo):
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    catalog = model.newCatalog(tipo)
+    
     return catalog
+
+
+
 # Funciones para la carga de datos
 def loadData(catalog):
-    loadvideos(catalog)
-    #loadcategory(catalog)
-def loadvideos(catalog):
-    vidsfile = cf.data_dir + 'videos-test.csv'
+    """
+    Carga los datos de los archivos y cargar los datos en la
+    estructura de datos
+    """
+    loadVideos(catalog)
+    
+def loadVideos(catalog):
+   
+    vidsfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(vidsfile, encoding='utf-8'))
-    for title in input_file:
-        model.addtitle(catalog, title)
-'''def loadcategory(catalog):
-    tagsfile = cf.data_dir + 'videos-small.csv'
-    input_file = csv.DictReader(open(tagsfile, encoding='utf-8'))
-    for tag in input_file:
-        model.addTag(catalog, tag)'''
+    for video in input_file:
+        model.addVideo(catalog, video)
+
 # Funciones de ordenamiento
+def sortVideos(catalog, size, algorithm ):
+    sort = model.sortVideos(catalog, size, algorithm)
+    return sort
 
 # Funciones de consulta sobre el catálogo
