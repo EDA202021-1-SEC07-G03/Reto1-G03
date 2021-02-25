@@ -102,7 +102,7 @@ while True:
         if inputs2 == 3:
             algorithm = 'Shell sort'
         size = int(input('Seleccione un tamaño de la sublista\n'))
-        print(len(catalog['videos']['elements']))
+        #print(len(catalog['videos']['elements']))
         if size <= len(catalog['videos']['elements']):
             tiempo_carga = controller.sortVideos(catalog, size, algorithm )
             print('El tiempo de carga del algoritmo '+ str(algorithm) + ' con '+ str(size) + ' datos es igual a: '+ str(tiempo_carga))
