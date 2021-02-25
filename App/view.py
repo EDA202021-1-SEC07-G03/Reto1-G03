@@ -51,6 +51,8 @@ def printOptions2():
     print('1- Insertion Sort')
     print('2- Selection Sort')
     print('3- Shell Sort')
+    print('4- Quick Sort')
+    print('5- Merge Sort')
 
 
 
@@ -97,10 +99,14 @@ while True:
 
         if inputs2 == 1:
             algorithm = 'Insertion sort'
-        if inputs2 == 2:
+        elif inputs2 == 2:
             algorithm = 'Selection sort'
-        if inputs2 == 3:
+        elif inputs2 == 3:
             algorithm = 'Shell sort'
+        elif inputs2 == 4:
+            algorithm = 'Quick sort'
+        elif inputs2 == 5:
+            algorithm = 'Merge sort' 
         size = int(input('Seleccione un tamaño de la sublista\n'))
         #print(len(catalog['videos']['elements']))
         if size <= len(catalog['videos']['elements']):

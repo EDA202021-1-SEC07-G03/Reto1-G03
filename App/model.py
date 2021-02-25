@@ -33,6 +33,8 @@ import time
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import selectionsort as ses
 from DISClib.Algorithms.Sorting import shellsort as shs
+from DISClib.Algorithms.Sorting import quicksort as qck
+from DISClib.Algorithms.Sorting import mergesort as mrg
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -79,6 +81,16 @@ def sortVideos(catalog, size, algorithm):
     elif algorithm == 'Shell sort':
         start_time = time.process_time()
         shs.sort(sub_list, cmpVideosbyViews)
+        stop_time = time.process_time()
+    
+    elif algorithm == 'Merge sort':
+        start_time = time.process_time()
+        mrg.sort(sub_list, cmpVideosbyViews)
+        stop_time = time.process_time()
+
+    elif algorithm == 'Quick sort':
+        start_time = time.process_time()
+        qck.sort(sub_list, cmpVideosbyViews)
         stop_time = time.process_time()
     
     elapsed_time_mseg = (stop_time - start_time)*1000
