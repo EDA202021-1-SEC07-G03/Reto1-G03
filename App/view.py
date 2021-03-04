@@ -97,6 +97,7 @@ while True:
         printOptions2()
         inputs2=int(input('Seleccione un tipo para el algorítmo de ordenamiento\n'))
 
+
         if inputs2 == 1:
             algorithm = 'Insertion sort'
         elif inputs2 == 2:
